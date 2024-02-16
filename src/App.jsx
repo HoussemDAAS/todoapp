@@ -29,9 +29,17 @@ function App() {
       };
     });
   };
+  const handleCancel = () => {
+    setShowModal((prevState) => {
+      return {
+        ...prevState,
+        selecetdProjectId: undefined,
+      };
+    });
+  }
   let content;
   if (showModal.selecetdProjectId === null) {
-    content = <NewProject onAdd={handleAddProject} />;
+    content = <NewProject onAdd={handleAddProject} handleClose={handleCancel} />;
   } else if (showModal.selecetdProjectId === undefined) {
     content = <NoProject start={handleshow} />;
   }
@@ -39,10 +47,9 @@ function App() {
 
 
 
-
   return (
     <main className="h-screen gap-8 flex">
-      <Header handleshow={handleshow} projects={showModal.projects}/>
+      <Header handleshow={handleshow} projects={showModal.projects} />
       {content}
     </main>
   );
