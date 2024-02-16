@@ -5,6 +5,17 @@
 body {
   font-family: "Inter", sans-serif;
 }
+@layer components{
+  .btn-hover{
+    @apply   transition duration-300 ease-in-out bg-[#C7C8CC] text-white px-4 py-2 rounded-md text-xs md:text-base hover:bg-stone-600 hover:text-stone-300;
+  }
+  .textarea-style{
+    @apply block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-stone-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-stone-800  dark:focus:ring-blue-500 dark:focus:border-blue-500;
+  }
+  .input-style{
+    @apply bg-stone-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-stone-800 dark:focus:ring-blue-500 dark:focus:border-blue-500                       
+  }
+}
 @layer utilities {
   .flex-center {
     @apply flex justify-center items-center;
@@ -21,13 +32,5 @@ body {
   .h3-bold {
     @apply text-[20px] font-bold leading-[26px];
   }
-  .btn-hover{
-    @apply   transition duration-300 ease-in-out bg-[#C7C8CC] text-white px-4 py-2 rounded-md text-xs md:text-base hover:bg-stone-600 hover:text-stone-300;
-  }
-  .textarea-style{
-    @apply block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-stone-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-stone-800  dark:focus:ring-blue-500 dark:focus:border-blue-500;
-  }
-  .input-style{
-    @apply bg-stone-200 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-stone-100 dark:border-gray-600 dark:placeholder-gray-400 dark:text-stone-800 dark:focus:ring-blue-500 dark:focus:border-blue-500                       
-  }
+  
 }

@@ -3,16 +3,47 @@ import NewProject from "./components/NewProject";
 import { useState } from "react";
 import NoProject from "./components/NoProject";
 function App() {
-  const [showModal, setShowModal] =useState(false);
+  const [showModal, setShowModal] = useState({
+    selecetdProjectId: undefined,
+    projects: [],
+  });
 
   const handleshow = () => {
-    setShowModal(!showModal);
+    setShowModal((prevState) => {
+      return {
+        ...prevState,
+        selecetdProjectId: null,
+      };
+    });
+  };
+  const handleAddProject = (projectData) => {
+    const project = {
+      ...projectData,
+      id: Math.random(),
+    };
+    setShowModal((prevState) => {
+      return {
+        ...prevState,
+        selecetdProjectId: undefined,
+        projects: [...prevState.projects, project],
+      };
+    });
+  };
+  let content;
+  if (showModal.selecetdProjectId === null) {
+    content = <NewProject onAdd={handleAddProject} />;
+  } else if (showModal.selecetdProjectId === undefined) {
+    content = <NoProject start={handleshow} />;
   }
+  
+
+
+
 
   return (
     <main className="h-screen gap-8 flex">
-    <Header handleshow={handleshow} />
-    {showModal ? <NewProject /> : <NoProject start={handleshow} />}
+      <Header handleshow={handleshow} projects={showModal.projects}/>
+      {content}
     </main>
   );
 }
