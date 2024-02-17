@@ -2,12 +2,22 @@ import Header from "./components/Header";
 import NewProject from "./components/NewProject";
 import { useState } from "react";
 import NoProject from "./components/NoProject";
+import SelectedProject from "./components/SelectedProject";
 function App() {
   const [showModal, setShowModal] = useState({
     selecetdProjectId: undefined,
     projects: [],
   });
 
+
+  const handleSelectdProject = (id) => {
+    setShowModal((prevState) => {
+      return {
+        ...prevState,
+        selecetdProjectId: id,
+      };
+    });
+  }
   const handleshow = () => {
     setShowModal((prevState) => {
       return {
@@ -34,10 +44,12 @@ function App() {
       return {
         ...prevState,
         selecetdProjectId: undefined,
+        projects: [...prevState.projects,newProject],
       };
     });
   }
-  let content;
+  const selectedProject = showModal.projects.find(project => project.id === showModal.selecetdProjectId);
+  let content=<SelectedProject project={selectedProject} />;
   if (showModal.selecetdProjectId === null) {
     content = <NewProject onAdd={handleAddProject} handleClose={handleCancel} />;
   } else if (showModal.selecetdProjectId === undefined) {
@@ -49,7 +61,7 @@ function App() {
 
   return (
     <main className="h-screen gap-8 flex">
-      <Header handleshow={handleshow} projects={showModal.projects} />
+      <Header handleshow={handleshow} projects={showModal.projects} onSelectProject={handleSelectdProject} />
       {content}
     </main>
   );
