@@ -7,9 +7,26 @@ function App() {
   const [showModal, setShowModal] = useState({
     selecetdProjectId: undefined,
     projects: [],
+    tasks: [],
   });
+function handleTasks(text){
 
-
+  setShowModal((prevState) => {
+    const newTask = {
+      text: text,
+      projectId: prevState.selecetdProjectId,
+       id: Math.random(),
+     };
+    return {
+      ...prevState,
+      tasks: [newTask,...prevState.tasks],
+    };
+  });
+  
+}
+function handleDeleteTask(){
+  
+}
   const handleSelectdProject = (id) => {
     setShowModal((prevState) => {
       return {
@@ -17,7 +34,7 @@ function App() {
         selecetdProjectId: id,
       };
     });
-  }
+  };
   const handleshow = () => {
     setShowModal((prevState) => {
       return {
@@ -44,24 +61,45 @@ function App() {
       return {
         ...prevState,
         selecetdProjectId: undefined,
-        projects: [...prevState.projects,newProject],
+        projects: [...prevState.projects, newProject],
       };
     });
-  }
-  const selectedProject = showModal.projects.find(project => project.id === showModal.selecetdProjectId);
-  let content=<SelectedProject project={selectedProject} />;
+  };
+  const handleDeleteProject = (id) => {
+    setShowModal((prevState) => {
+      return {
+        ...prevState,
+        selecetdProjectId: undefined,
+        projects: prevState.projects.filter((project) => project.id !== id),
+      };
+    });
+  };
+  const selectedProject = showModal.projects.find(
+    (project) => project.id === showModal.selecetdProjectId
+  );
+  let content = (
+    <SelectedProject
+      project={selectedProject}
+      DeleteProject={handleDeleteProject}
+      onAddTask={handleTasks}
+      onDeleteTask={handleDeleteTask}
+    />
+  );
   if (showModal.selecetdProjectId === null) {
-    content = <NewProject onAdd={handleAddProject} handleClose={handleCancel} />;
+    content = (
+      <NewProject onAdd={handleAddProject} handleClose={handleCancel} />
+    );
   } else if (showModal.selecetdProjectId === undefined) {
     content = <NoProject start={handleshow} />;
   }
-  
-
-
 
   return (
     <main className="h-screen gap-8 flex">
-      <Header handleshow={handleshow} projects={showModal.projects} onSelectProject={handleSelectdProject} />
+      <Header
+        handleshow={handleshow}
+        projects={showModal.projects}
+        onSelectProject={handleSelectdProject}
+      />
       {content}
     </main>
   );
