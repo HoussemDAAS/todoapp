@@ -16,13 +16,13 @@ const Header = ({
           + Add Project
         </button>
       </div>
-      <ul className="gap-4 mt-4 text-start">
+      <ul className="gap-4 mt-4 text-start ">
         {projects.map((project) => {
            
           return (
             <li
               key={project.title}
-              className={`my-2 text-stone-300 text-md font-semibold tracking-widest active ${ selectedProjectId === project.id ? "bg-stone-500" : ""}`}
+              className={`my-2 rounded text-stone-300 text-md font-semibold tracking-widest active ${ selectedProjectId === project.id ? "bg-stone-500" : ""}`}
             >
               <button
                 className="hover:text-stone-50 hover:bg-stone-500 py-2 px-4 rounded transition duration-300 ease-in-out"

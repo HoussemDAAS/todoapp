@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Input from './Input'
 
 const NewTask = ({onAdd}) => {
@@ -7,13 +7,16 @@ const NewTask = ({onAdd}) => {
        settask(e.target.value);
     }
     const handleClick = () => {
+      if(task.trim().length === 0){
+      return;
+      }
         onAdd(task);
         settask('');
     }
 
   return (
     <div className='flex item-center gap-4 '>
-      <Input  type="text" onChange={(e)=>handlesave(e)} value={task}/>
+      <Input  type="text" onChange={(e)=>handlesave(e)} value={task} required/>
       <button className='btn-hover ' onClick={handleClick}>Add Task</button>
     </div>
   )

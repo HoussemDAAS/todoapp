@@ -13,8 +13,8 @@ function handleTasks(text){
 
   setShowModal((prevState) => {
     const newTask = {
-      text: text,
       projectId: prevState.selecetdProjectId,
+      text: text,
        id: Math.random(),
      };
     return {
@@ -24,7 +24,14 @@ function handleTasks(text){
   });
   
 }
-function handleDeleteTask(){
+function handleDeleteTask(id){
+  setShowModal((prevState) => {
+    return {
+      ...prevState,
+
+      tasks: prevState.tasks.filter((task) => task.id !== id),
+    };
+  });
   
 }
   const handleSelectdProject = (id) => {
@@ -83,6 +90,7 @@ function handleDeleteTask(){
       DeleteProject={handleDeleteProject}
       onAddTask={handleTasks}
       onDeleteTask={handleDeleteTask}
+      tasks={showModal.tasks}
     />
   );
   if (showModal.selecetdProjectId === null) {
@@ -99,6 +107,7 @@ function handleDeleteTask(){
         handleshow={handleshow}
         projects={showModal.projects}
         onSelectProject={handleSelectdProject}
+        selectedProjectId={showModal.selecetdProjectId}
       />
       {content}
     </main>
